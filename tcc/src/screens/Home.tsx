@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -10,18 +10,15 @@ import { Filter } from '../componentes/Filter';
 import { Button } from '../componentes/Button';
 import { Order, OrderProps } from '../componentes/Order'
 import { color } from 'native-base/lib/typescript/theme/styled-system';
+import firestore from '@react-native-firebase/firestore'
+import {dateFormat} from '../utils/firesoreDateFormat';
+import { Loading } from '../componentes/Loading';
 
 export function Home() {
+    const [isLoading, setIsLoading] = useState(true);
     const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('open');
     const { colors} = useTheme();
-    const [orders, setOrders] = useState<OrderProps[]>([
-        {
-            id: '456',
-            nome: 'Clotilde Terra',
-            when: '18/08/2022 as 03:48',
-            status: 'open'
-        }
-    ]);
+    const [orders, setOrders] = useState<OrderProps[]>([]);
     
     const navigation = useNavigation();
     function handleNewOrder(){
@@ -39,6 +36,39 @@ export function Home() {
 
         })
     }
+
+    //Criando retorno dos dados cadastrados
+        useEffect(() => {
+            setIsLoading(true);
+
+            const subscriber = firestore()
+            .collection('orders')
+            .where('status', '==', statusSelected)
+            .onSnapshot(snapshot => {
+                const data = snapshot.docs.map(doc => {
+                    const {classificacao, nome, cpf, precao, frequencia, saturacao, observacao, status, created_at } = doc.data();
+
+                    return {
+                        id: doc.id,
+                        classificacao, 
+                        nome, 
+                        cpf, 
+                        precao, 
+                        frequencia, 
+                        saturacao, 
+                        observacao, 
+                        status,
+                        when: dateFormat(created_at)
+                    }
+                })
+
+                setOrders(data);
+                setIsLoading(false);
+
+            });
+
+                return subscriber;
+        }, [statusSelected])
 
   return (
     <VStack flex={1} pb={1} bg="#cffafe">
@@ -77,6 +107,8 @@ export function Home() {
 
             </HStack>
             
+           {
+            isLoading ? <Loading /> :
             <FlatList 
                 data={orders}
                 keyExtractor={ item => item.id}
@@ -93,6 +125,7 @@ export function Home() {
                     </Center>
                 )}
             />
+            }
 
             <Button title="Nova Solicitação" mb={5} onPress={handleNewOrder} />
         </VStack>

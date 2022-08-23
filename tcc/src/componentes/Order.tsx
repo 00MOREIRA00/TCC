@@ -3,7 +3,13 @@ import { ClockAfternoon, Hourglass, CircleWavyCheck } from 'phosphor-react-nativ
 
 export type OrderProps = {
         id: string,
-        nome: string,
+        classificacao: string, 
+        nome: string,  
+        cpf: string 
+        precao: string 
+        frequencia: string, 
+        saturacao: string, 
+        observacao: string, 
         when: string,
         status: 'open' | 'closed',
 }
@@ -29,7 +35,7 @@ export function Order({ data, ...rest }: Props) {
         <Box h="full" w={2} bg={statusColor}/>
         <VStack flex={1} my={5} ml={5}>
             <Text color="black" fontSize="md">
-                Nome: {data.nome}
+                Classificacao: {data.classificacao}
             </Text>
 
             <HStack alignItems="center">
