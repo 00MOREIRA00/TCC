@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "600090465562",
+    "project_id": "screening-784ce",
+    "storage_bucket": "screening-784ce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600090465562:android:90e2e4a5be86e731d4c8a3",
+        "android_client_info": {
+          "package_name": "com.screening"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "600090465562-s6j9meb707avv4bi80i075bf7aavj9hc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyLFDpqITu9Drx5AptCaw4sKabGVRwvUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "600090465562-s6j9meb707avv4bi80i075bf7aavj9hc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "600090465562-fmd4jia6u3l340hh32st36eajj7cilf9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.screening"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

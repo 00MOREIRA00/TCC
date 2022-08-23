@@ -1,4 +1,4 @@
-package com.tcc;
+package com.screening;
 
 import android.os.Build;
 import android.os.Bundle;
