@@ -11,7 +11,7 @@ import { Button } from '../componentes/Button';
 import { Order, OrderProps } from '../componentes/Order'
 import { color } from 'native-base/lib/typescript/theme/styled-system';
 import firestore from '@react-native-firebase/firestore'
-import {dateFormat} from '../utils/firesoreDateFormat';
+import {dateFormat} from '../utils/firestoreDateFormat';
 import { Loading } from '../componentes/Loading';
 
 export function Home() {
@@ -68,7 +68,7 @@ export function Home() {
             });
 
                 return subscriber;
-        }, [statusSelected])
+        }, [statusSelected]);
 
   return (
     <VStack flex={1} pb={1} bg="#cffafe">

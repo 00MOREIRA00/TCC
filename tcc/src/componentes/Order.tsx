@@ -2,17 +2,17 @@ import { Box, Circle, HStack, Text, useTheme, VStack, Pressable, IPressableProps
 import { ClockAfternoon, Hourglass, CircleWavyCheck } from 'phosphor-react-native';
 
 export type OrderProps = {
-        id: string,
-        classificacao: string, 
-        nome: string,  
-        cpf: string 
-        precao: string 
-        frequencia: string, 
-        saturacao: string, 
-        observacao: string, 
-        when: string,
-        status: 'open' | 'closed',
-}
+    id: string;
+    classificacao: string; 
+    nome: string;  
+    cpf: string; 
+    precao: string; 
+    frequencia: string; 
+    saturacao: string; 
+    observacao: string; 
+    when: string;
+    status: 'open' | 'closed';
+};
 
 type Props = IPressableProps & {
     data: OrderProps;
