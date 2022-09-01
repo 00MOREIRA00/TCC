@@ -8,7 +8,7 @@ import firestore from '@react-native-firebase/firestore';
 import { OrderFirestoreDTO } from '../DTOs/OrderFirestoreDTO';
 import { dateFormat } from '../utils/firestoreDateFormat';
 import { Loading } from '../componentes/Loading';
-import { CircleWavyCheck, Hourglass, DesktopTower, ClipboardText, Clipboard, User } from "phosphor-react-native";
+import { CircleWavyCheck, Hourglass, DesktopTower, ClipboardText, Clipboard, User, Trash } from "phosphor-react-native";
 import { CardDetails } from '../componentes/CardDetails';
 import { Input } from '../componentes/Input';
 import { Button} from '../componentes/Button';
@@ -28,6 +28,7 @@ type OrderDetails = OrderProps & {
 export function Details() {
   const [isLoading, setIsLoading] = useState(true);
   const [solution, setSolution] = useState('');
+  const [observacao, setObservacao] = useState('');
   const [order, setOrder] = useState<OrderDetails>({} as OrderDetails);
 
   const navigation = useNavigation();
@@ -59,6 +60,56 @@ export function Details() {
     });
 
   }
+
+  //Salvando Observação
+  function handleOrderUpdate(){
+    if(!observacao){
+      return  Alert.alert('Solicitação', 'Informe uma obserção');
+    }
+
+    firestore()
+    .collection<OrderFirestoreDTO>('orders')
+    .doc(orderId)
+    .update({
+      observacao,
+    })
+    .then(() => {
+      Alert.alert('Observação', 'Observação atualizada');
+    })
+    .catch((error) => {
+      console.log(error);
+      Alert.alert('Observação', 'Não foi possivel atualizar a observação');
+    });
+
+  }
+
+  //criando logica de exclusão
+  function handleOrderDelete(){
+    Alert.alert("Remover item", "Tem certeza que deseja remover esse item?", [
+      {
+        text: "Não",
+        style: "cancel",
+      },
+      {
+        text: "Sim",
+        onPress: () => {
+          firestore()
+          .collection<OrderFirestoreDTO>('orders')
+          .doc(orderId)
+          .delete()
+          .then(() => {
+            Alert.alert('Exclusão', 'Registro excluido com sucesso');
+            navigation.goBack();
+          })
+          .catch((error) => {
+            console.log(error);
+            Alert.alert('Exclusão', 'Não foi possivel excluir esse registro');
+          });
+        },
+      },
+    ]);
+    
+  }
   
 
 
@@ -69,7 +120,7 @@ export function Details() {
       .get()
       .then((doc) => {
         const { classificacao, nome, cpf, precao, frequencia, saturacao, observacao, status, solution, created_at, closed_at} = doc.data();
-        
+        setObservacao(observacao)
         const closed = closed_at ? dateFormat(closed_at) : null;
 
         setOrder({
@@ -98,8 +149,9 @@ export function Details() {
       }
 
   return (
-    <VStack flex={1} bg="#cffafe">   
-        <Header title="solicitação"/>
+    <VStack flex={1} bg="#cffafe"> 
+    <ScrollView>  
+        <Header title="solicitação" isTrashButton={order.status === "open"} trashButtom={handleOrderDelete}/>
 
         <HStack bg="#fffaf0" justifyContent="center" p={4}>
             {
@@ -119,7 +171,7 @@ export function Details() {
             </Text>
         </HStack>
 
-            <ScrollView>
+            
                 
                   <CardDetails
                     title='PACIENTE'
@@ -131,8 +183,20 @@ Freq: ${order.frequencia} Pressão: ${order.precao} Sat: ${order.precao}`}
 
                 <CardDetails
                   title='DESCRIÇÃO'
-                  description={order.observacao}
+                  description={order.status === "closed" &&order.observacao}
                   icon={Clipboard}
+                  children={
+                    observacao && order.status === "open" &&(
+                      <Input
+                        placeholder="Descrição da solução"
+                        onChangeText={setObservacao}
+                        value={observacao}
+                        textAlignVertical="top"
+                        multiline
+                        h={24}
+                      />
+                    )
+                  }
                 />
 
                 <CardDetails
@@ -156,7 +220,10 @@ Freq: ${order.frequencia} Pressão: ${order.precao} Sat: ${order.precao}`}
       </ScrollView>
 
       {order.status === "open" && (
-        <Button title="Encerrar solicitação" onPress={handleOrderClose} m={5} />
+        <>
+          <Button title="Encerrar solicitação" onPress={handleOrderClose} m={5} />
+          <Button title="Salvar Update" onPress={handleOrderUpdate} m={5} mt={0}/>
+        </>
       )}
     </VStack>
   );

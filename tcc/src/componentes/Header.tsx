@@ -1,15 +1,18 @@
 import { Heading, HStack, IconButton, StyledProps, useTheme } from 'native-base';
-import {CaretLeft} from 'phosphor-react-native';
+import {CaretLeft, Trash} from 'phosphor-react-native';
 import { StyleProp } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 
 type Props = StyledProps & {
     title: string;
+    isTrashButton: boolean;
+    trashButtom(): void;
 }
 
-export function Header({ title, ...rest }: Props) {
+export function Header({ title, isTrashButton, trashButtom, ...rest }: Props) {
     const { colors } = useTheme();
     const navigation = useNavigation();
+
 
     function handleGoBavk(){
         navigation.goBack();
@@ -33,6 +36,11 @@ export function Header({ title, ...rest }: Props) {
             {title}
         </Heading>
 
+        {isTrashButton &&
+        <IconButton 
+            icon={<Trash  color={colors.gray[700]} size={24}/>} onPress={trashButtom}
+        />
+        }
     </HStack>
   );
 }
