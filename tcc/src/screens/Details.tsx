@@ -123,7 +123,8 @@ export function Details() {
                 
                   <CardDetails
                     title='PACIENTE'
-                    description={`Paciente: ${order.nome}`}
+                    description={`Paciente: ${order.nome} 
+Freq: ${order.frequencia} Pressão: ${order.precao} Sat: ${order.precao}`}
                     icon={User}
                     footer={order.when}
                   />
