@@ -36,6 +36,7 @@ type OrderDetails = {
   atendimento: string;
   closed: string;
   status: string;
+  responsavel: string;
 }
 
 type PacienteDetails = {
@@ -68,6 +69,7 @@ export function Details() {
       .update({
         status: 'close',
         atendimento,
+        responsavel: userLocal,
         closed_at: firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
@@ -140,7 +142,8 @@ export function Details() {
           temperatura,
           paciente,
           closed_at,
-          atendimento
+          atendimento,
+          responsavel
         } = doc.data();
         //console.log(orderId);
         //console.log(paciente);
@@ -158,7 +161,8 @@ export function Details() {
           when: dateFormat(created_at),
           status,
           atendimento,
-          closed
+          closed,
+          responsavel
         });
         getAssentamento(orderId)
         setIsLoading(false);
@@ -224,22 +228,27 @@ export function Details() {
             description={'Reclamação: ' + order.problema}
             icon={Clipboard}
           />
-          <CardDetails
-            title='Registros'
-            children={
-              <FlatList
-                data={assentamento}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => <Assentamento data={item} /* onPress={ () => handleOpenDetails(item.id_at, hospitalId) }  */ />}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 50 }}
-                ListEmptyComponent={() => (
-                  <Text></Text>
-                )}
-              />
-            }
-            icon={Clipboard}
-          />
+                    
+          {
+            assentamento.length >=1 &&
+            <CardDetails
+              title='Registros'
+              children={
+                <FlatList
+                  data={assentamento}
+                  keyExtractor={item => item.id}
+                  renderItem={({ item }) => <Assentamento data={item} /* onPress={ () => handleOpenDetails(item.id_at, hospitalId) }  */ />}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{ paddingBottom: 50 }}
+                  ListEmptyComponent={() => (
+                    <Text></Text>
+                  )}
+                />
+              }
+              icon={Clipboard}
+            />
+          }
+
           {
             order.status === 'open' &&
             <Button
@@ -252,7 +261,7 @@ export function Details() {
           <CardDetails
             title='Alta'
             description={order.atendimento}
-            footer={order.closed && 'Alta em: ' + order.closed}
+            footer={order.closed && 'Alta em: ' + order.closed + "\nResponsável: " + order.responsavel}
             icon={CircleWavyCheck}
           >
             {
