@@ -1,0 +1,86 @@
+EXPO
+expo init (Batizar projeto)
+selecionar bare and minimal, just the essentials to get you started
+alterar App.js para App.tsx
+criar arquivo tsconfig.tsx
+expo start
+
+GIT HUB
+
+git config --list (Lista configurações)
+git config --global user.name "Your Name"
+git config --global user.email "youremail@yourdomain.com"
+
+…or create a new repository on the command line
+echo "# crud-firestore" >> README.md
+    git init
+    git add README.md
+    git commit -m "first commit"
+    git branch -M carlos
+    git remote add origin https://github.com/00MOREIRA00/TCC.git
+    git push -u origin carlos
+    (Autenticar pelo site)
+…or push an existing repository from the command line
+    git remote add origin https://github.com/00MOREIRA00/TCC.git
+    git branch -M carlos
+    git push -u origin carlos
+…or import code from another repository
+    You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+
+git config --list (Lista configurações)
+
+…or create a new repository on the command line
+echo "# tcc" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/carloslpsouza/tcc.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin https://github.com/carloslpsouza/tcc.git
+git branch -M main
+git push -u origin main
+
+##### Procurar scrap (Emula Android)
+
+
+DEPENDENCIAS
+npm i firebase
+npm i @react-navigation/native
+npm i @react-navigation/stack
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+
+#Função que retorna o last insert id:
+.then((docRef)=>{
+            sinaisVitais(docRef.id)
+        })
+
+#ERROS:
+    failed to push some refs to 'https://github.com/
+
+    ERROR  Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
+
+
+    ERROR  Warning: Each child in a list should have a unique "key" prop.
+    Esse erro acontece pq a lista não tem id, por isso:
+        return {
+            id: doc.id,
+
+        let temp = {...dt, id:hospId, em_aberto}
+    
+    Erro ao dar puch no branch carlos
+    hint: Updates were rejected because the tip of your current branch is behind
+    hint: its remote counterpart. Integrate the remote changes (e.g.
+    hint: 'git pull ...') before pushing again.
+    hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+    Solução:
+    git branch --set-upstream-to=origin/carlos
+    git push -f origin carlos
+
+Parando o mouse em cima de cada metodo o vs da exemplos
+
+#FIREBASE
+Quando executa um orderBy, ele retorna erro pedindo que seja criado um indice do documento e no proprio console, ele gera um link com o necessário para criação. Basta abrir o link
