@@ -34,7 +34,11 @@ Após o cadastro do paciente ele é inserido automaticamente a uma fila de esper
 A primeira imagem mostra o paciente inserido na fila por ordem de prioridade, A segunda imagem mostra as informações do paciente
 
 
-
+# Tecnologias Utilizadas
+<div style="display: inline_block"><br>
+  <img align="center" alt="REACT" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" />
+  <img align="center" alt="JS" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
+  <img align="center" alt="CSS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg">
 
 
 
