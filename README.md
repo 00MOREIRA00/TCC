@@ -14,8 +14,8 @@ Através da aplicação o profissional destinado ao processo de triagem pode cad
 <ol>
   <h5>Informações Necessárias</h5>
   <li style="text-decoration="none";">Nome</li>
-  <li>Preção</li>
-  <li>Frequencia Cardiaca</li>
+  <li>Pressão</li>
+  <li>Frequência Cardiaca</li>
   <li>Saturação</li>
   <li>Observação</li>
   <li>Classificação de Risco</li>
